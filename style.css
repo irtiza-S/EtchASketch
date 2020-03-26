@@ -1,17 +1,100 @@
-.container{
-    margin: 20px auto;
-    /* border: 1px solid red; */
-    background: white;
-    height: 600px;
-    width: 700px;
-    display: flex;
-    flex-direction: column;
+/* utilities */
+body{
+    font-size: 100%;
+    font-family: 'Pacifico', Helvetica, sans-serif;
+    background: #C9D6FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+h1 {
+    font-size: 180%;
 }
 
 .square{
     flex: 1;
-    border: 2px solid black;
+    border: 1px solid black;
     box-sizing: border-box;
     display: inline-block;
     margin: 0;
 }
+
+
+#header{
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    
+}
+
+.reset{
+    position: relative;
+    top: 530px;
+    right: 210px;
+    z-index: 2;
+    border: none;
+    height: 35px; 
+    width: 35px;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    /* padding: 5px; */
+}
+
+.reset:hover{
+    transition: 500ms;
+    opacity: 0.9;
+}
+
+.reset:active{
+    transition: 500ms;
+    opacity: 0.75;
+}
+.reset:focus{outline:none;}
+
+
+#heading{
+    font-size: 150%;
+    position: relative;
+    top:70px;
+    z-index: 1;
+    text-shadow: -1px -1px rgba(0,0,0,0.9);
+    color:#FFD700;
+}
+
+.container{
+    margin: 20px auto;
+    background: white;
+    height: 450px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    /* right: 400px; */
+    top: 50px;
+    -webkit-box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
+    -moz-box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
+    box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
+
+}
+
+.container-border{
+    position: relative;
+    bottom: 50px;
+    height: 550px;
+    width: 550px;
+    background: #F00000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #DC281E, #F00000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #DC281E, #F00000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin: 0 auto;
+    border-radius: 20px;
+    -webkit-box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.6);
+    -moz-box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.6);
+    box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.6);
+}
+
+
+
+
