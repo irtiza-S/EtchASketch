@@ -1,13 +1,28 @@
 const container = document.querySelector('.container');
 const square = document.getElementsByClassName('square');
 const header = document.querySelector('header');
+const containerWrapper = document.querySelector('.containerBorder');
 
 let reset = document.createElement('button');
 header.appendChild(reset);
 reset.textContent = 'R';
 reset.style.cssText = 'font-family: Pacifico, Arial, cursive';
 reset.classList.add('reset');
-// reset.style.cssText = 'width: 10px;'
+reset.classList.add('button');
+
+let setGrid = document.createElement('button');
+header.appendChild(setGrid);
+setGrid.textContent = 'S.G'
+setGrid.style.cssText = 'font-family: Pacifico, Arial, cursive';
+setGrid.classList.add('setGrid');
+setGrid.classList.add('button');
+
+let deleteBtn = document.createElement('button');
+header.appendChild(deleteBtn);
+deleteBtn.textContent = 'D';
+deleteBtn.style.cssText = 'font-family: Pacifico, Arial, cursive';
+deleteBtn.classList.add('deleteBtn');
+deleteBtn.classList.add('button');
 
 
 function changeBackground(e){
@@ -21,7 +36,7 @@ function defaultGrid(){
     //makes a 16 x 16 grid - default grid
     for(let i = 0; i < 16; i++){
         const div =  document.createElement('div');
-        div.style.cssText = 'border: 1px solid black; flex: 1';
+        div.style.cssText = 'flex: 1';
         container.appendChild(div);
         // div.addEventListener('mouseover', changeBackground);
         for (let j = 0; j < 16; j++){
@@ -33,14 +48,63 @@ function defaultGrid(){
             div2.addEventListener('mouseover', changeBackground);
             reset.addEventListener('click', (e) => {
                 reset = e.target;
-                div2.style.backgroundColor = 'white'
+                div2.style.backgroundColor = ''
                 div2.style.cssText = 'box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.05)';
+                
             });
+            
+            deleteBtn.addEventListener('click', () =>{
+                container.innerHTML = ''
+            })
+            
+            
+                // containerWrapper.removeChild(div);
+
+                
+                // container.removeChild(div);
+                // div.removeChild(div2);
+                // console.log(typeof input);
+                
+            
+               
         }
-    }
+    }                                  
+                
+                   
 }
 
+
+
+
+
+
+setGrid.addEventListener('click', (e) => {
+    newGrid = prompt('To create a new grid enter a number between 0 and 64');
+    newGrid = parseInt(newGrid);
+    
+    for(let i = 0; i < newGrid; i++){
+        const box = document.createElement('div');
+        box.style.cssText = 'flex: 1';
+        container.append(box);
+
+        for(let j = 0; j < newGrid; j++){
+            const box2 = document.createElement('div');
+            box2.classList.add('square');
+            box.style.display = 'flex';
+            box.appendChild(box2);
+
+            box2.addEventListener('mouseover', changeBackground);
+            reset.addEventListener('click', (e) =>{
+                reset = e.target;
+                box2.style.backgroundColor = '';
+                box2.style.cssText = 'box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.05)';
+            })
+
+            deleteBtn.addEventListener('click', () => {container.innerHTML = ''});
+        }
+    }
+
+
+});
+
 defaultGrid();
-
-
-
