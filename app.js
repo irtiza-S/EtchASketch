@@ -6,23 +6,26 @@ const containerWrapper = document.querySelector('.containerBorder');
 let reset = document.createElement('button');
 header.appendChild(reset);
 reset.textContent = 'R';
-reset.style.cssText = 'font-family: Pacifico, Arial, cursive';
 reset.classList.add('reset');
 reset.classList.add('button');
 
 let setGrid = document.createElement('button');
 header.appendChild(setGrid);
 setGrid.textContent = 'S.G'
-setGrid.style.cssText = 'font-family: Pacifico, Arial, cursive';
 setGrid.classList.add('setGrid');
 setGrid.classList.add('button');
 
 let deleteBtn = document.createElement('button');
 header.appendChild(deleteBtn);
 deleteBtn.textContent = 'D';
-deleteBtn.style.cssText = 'font-family: Pacifico, Arial, cursive';
 deleteBtn.classList.add('deleteBtn');
 deleteBtn.classList.add('button');
+
+let eraser = document.createElement('button');
+header.appendChild(eraser);
+eraser.textContent = 'E';
+eraser.classList.add('button');
+eraser.classList.add('eraser');
 
 
 function changeBackground(e){
@@ -31,6 +34,8 @@ function changeBackground(e){
     let div2 = e.target; //this will target the current element - which is div2
     return div2.style.backgroundColor = randomColor;
 }
+
+
 
 function defaultGrid(){
     //makes a 16 x 16 grid - default grid
@@ -51,20 +56,29 @@ function defaultGrid(){
                 div2.style.backgroundColor = ''
                 div2.style.cssText = 'box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.05)';
                 
+                
             });
+
+            
+            
             
             deleteBtn.addEventListener('click', () =>{
                 container.innerHTML = ''
             })
             
+            eraser.addEventListener('click', (e) => {
+                div2.addEventListener('mouseover', (e) =>{
+                    div2.style.backgroundColor = '';
+                });
+            });
             
-                // containerWrapper.removeChild(div);
-
-                
-                // container.removeChild(div);
-                // div.removeChild(div2);
-                // console.log(typeof input);
-                
+            eraser.addEventListener('dblclick', (e) =>{
+                div2.addEventListener('mouseover', (e)=>{
+                    var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                    let div2 = e.target; //this will target the current element - which is div2
+                    div2.style.backgroundColor = randomColor;
+                });
+            });    
             
                
         }
@@ -72,9 +86,6 @@ function defaultGrid(){
                 
                    
 }
-
-
-
 
 
 
@@ -98,9 +109,27 @@ setGrid.addEventListener('click', (e) => {
                 reset = e.target;
                 box2.style.backgroundColor = '';
                 box2.style.cssText = 'box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.05)';
-            })
+                
+            });
+
+            
+            
 
             deleteBtn.addEventListener('click', () => {container.innerHTML = ''});
+            
+            eraser.addEventListener('click', (e) =>{
+                box2.addEventListener('mouseover', (e) =>{
+                    box2.style.backgroundColor = '';
+                });
+            });
+            
+            eraser.addEventListener('dblclick', (e) =>{
+                box2.addEventListener('mouseover', (e)=>{
+                    var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                    let box2 = e.target; //this will target the current element - which is div2
+                    box2.style.backgroundColor = randomColor;
+                });
+            });  
         }
     }
 

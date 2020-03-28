@@ -101,7 +101,7 @@ h1 {
 
 .reset{
     position: relative;
-    right: 210px;
+    right: 190px;
     z-index: 2;
     
     
@@ -110,12 +110,18 @@ h1 {
 .setGrid {
     position:relative;
     z-index: 3;
-    left: 245px; 
+    left: 255px; 
 }
 
 .deleteBtn{
     position:relative;
     z-index: 4;
-    right: 35px;
+    right: 102px;
     
+}
+
+.eraser{
+    position:relative;
+    left: 32px;
+    z-index: 5;
 }
