@@ -1,127 +1,193 @@
 /* utilities */
-body{
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 100%;
     font-family: 'Pacifico', Helvetica, sans-serif;
-    background: #C9D6FF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: #dde3ec;
 }
 
-h1 {
-    font-size: 180%;
+/* The red plastic board. It is a wrapping flex row: the title and the screen
+   are each full width, so they take a line each, and the buttons share the
+   last line. */
+.containerBorder {
+    width: min(92vw, 550px);
+    padding: 16px 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px 12px;
+    border-radius: 28px;
+    background: linear-gradient(170deg, #f0322b, #e0201b 50%, #c41712);
+    box-shadow:
+        inset 0 2px 3px rgba(255, 255, 255, 0.35),
+        inset 0 -6px 10px rgba(0, 0, 0, 0.25),
+        0 18px 30px rgba(60, 20, 20, 0.35);
 }
 
-.square{
+/* header styling */
+/* display: contents removes the header's own box, so the title and the
+   buttons inside it are laid out directly by .containerBorder. That lets
+   "order" put the screen between them without touching the HTML or JS. */
+#header {
+    display: contents;
+}
+
+#heading {
+    order: 1;
+    flex: 0 0 100%;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: #F2C12E;
+    text-shadow: 0 2px 0 #8a1a12;
+}
+
+/* The drawing screen. aspect-ratio keeps it square at any width. */
+.container {
+    order: 2;
+    flex: 0 0 100%;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #cfd3cd;
+}
+
+/* Inner shadow drawn on top of the cells, so it stays visible after painting.
+   pointer-events: none lets the mouse pass through to the cells. */
+.container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 14px 4px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
+
+/* Rows and cells both use .square. The nested selector targets cells only
+   and gives them a faint grid line. */
+.square {
     flex: 1;
-    box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.1);
-    /* border: 1px solid black; */
-    box-sizing: border-box;
-    display: inline-block;
     margin: 0;
 }
 
-
-#header{
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px;
-    
+.square .square {
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
 }
 
-.button{
-    font-family: 'Pacifico', Arial, cursive;
-    position: relative;
-    top: 530px;
+/* Everything the JS appends to the header goes on the last line, under the
+   screen. space-between on the board pushes the first and last buttons into
+   the corners, like the two knobs on the real toy. */
+#header > button,
+#header > input {
+    order: 3;
+}
+
+/* Pull the two end knobs out toward the corners of the board */
+#header > :nth-child(2) {
+    margin-left: -22px;
+}
+
+#header > :last-child {
+    margin-right: -22px;
+}
+
+/* button styling */
+.button,
+.pickerBtn,
+input[type='color'] {
+    width: 64px;
+    height: 64px;
+    padding: 0;
     border: none;
-    height: 35px; 
-    width: 35px;
     border-radius: 50%;
-    box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.1);
     cursor: pointer;
+    font-family: 'Pacifico', Arial, cursive;
+    font-size: 1.15rem;
+    color: #333;
+    background: radial-gradient(circle at 35% 30%, #ffffff, #fafafa 45%, #c9c9c9);
+    box-shadow:
+        0 3px 0 rgba(0, 0, 0, 0.35),
+        0 6px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 120ms, box-shadow 120ms;
 }
 
-
-.button:hover{
-    transition: 500ms;
-    opacity: 0.9;
+.button:hover,
+input[type='color']:hover {
+    transform: translateY(-1px);
 }
 
-.button:active{
-    transition: 500ms;
-    opacity: 0.75;
-}
-.button:focus{outline:none;}
-
-
-/*header styling */
-
-#heading{
-    font-size: 150%;
-    position: relative;
-    top:70px;
-    z-index: 1;
-    text-shadow: -1px -1px rgba(0,0,0,0.9);
-    color:#FFD700;
+.button:active,
+input[type='color']:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.container{
-    margin: 20px auto;
-    background: white;
-    height: 450px;
-    width: 450px;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    position: relative;
-    /* right: 400px; */
-    top: 50px;
-    -webkit-box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
-    -moz-box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
-    box-shadow:inset 0px 0px 15px 10px rgba(0,0,0,0.6);
-
+.button:focus-visible,
+input[type='color']:focus-visible {
+    outline: 3px solid #F2C12E;
+    outline-offset: 3px;
 }
 
-.containerBorder{
-    position: relative;
-    bottom: 50px;
-    height: 550px;
-    width: 550px;
-    background: #F00000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #DC281E, #F00000);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #DC281E, #F00000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    margin: 0 auto;
-    border-radius: 20px;
-    -webkit-box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.8);
-    -moz-box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.8);
-    box-shadow:inset 0px 0px 15px 20px rgba(167, 20, 20, 0.8);
+/* Round swatch with a white rim, so the picker looks like a knob too */
+input[type='color'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border: 4px solid #fafafa;
+    background: none;
 }
 
-/*button-styling */
-
-.reset{
-    position: relative;
-    right: 190px;
-    z-index: 2;
-    
-    
+input[type='color']::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
 
-.setGrid {
-    position:relative;
-    z-index: 3;
-    left: 255px; 
+input[type='color']::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
 }
 
-.deleteBtn{
-    position:relative;
-    z-index: 4;
-    right: 102px;
-    
+input[type='color']::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
 }
 
-.eraser{
-    position:relative;
-    left: 32px;
-    z-index: 5;
+/* .random, .setGrid, .pickerBtn and .eraser need no positioning.
+   Use them only if you want a button to look different. */
+
+@media (max-width: 480px) {
+    .containerBorder {
+        padding: 14px 22px 18px;
+    }
+
+    #header > :nth-child(2) {
+        margin-left: -8px;
+    }
+
+    #header > :last-child {
+        margin-right: -8px;
+    }
+
+    .button,
+    .pickerBtn {
+        width: 52px;
+        height: 52px;
+    }
 }
