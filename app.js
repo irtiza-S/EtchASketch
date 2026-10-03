@@ -4,6 +4,8 @@ const header = document.querySelector('header');
 // heading.style = 'display: none;'
 let pickedcolor = '#000000'
 let mode = 'random'
+let usrchoice = 0
+let regularGrid = true
 
 const eraser = document.createElement('button')
 eraser.textContent = 'E'
@@ -29,15 +31,25 @@ randomClrBtn.classList.add('random')
 header.appendChild(randomClrBtn)
 randomClrBtn.addEventListener('click', () => mode = 'random')
 
+const setgridbtn = document.createElement('button')
+setgridbtn.textContent = 'S.G'
+setgridbtn.classList.add('button')
+header.appendChild(setgridbtn)
+setgridbtn.addEventListener('click', gridSize)
+
 function defaultGrid(e) {
-    let usrchoice = gridSize()
-    for (let i = 0; i < usrchoice; i++) {
+    let size = 16
+    if (!regularGrid) {
+        size = usrchoice
+    }
+    console.log(size)
+    for (let i = 0; i < size; i++) {
         let div = document.createElement('div')
         div.setAttribute('style', 'display: flex; flex: 1')
         container.appendChild(div)
         div.classList.add('square')
         // div.addEventListener('mouseover', colorRandomizer())
-        for (let j = 0; j < usrchoice; j++) {
+        for (let j = 0; j < size; j++) {
             let div2 = document.createElement('div')
             div2.setAttribute('style', 'flex: 1;')
             div2.classList.add('square')
@@ -49,8 +61,11 @@ function defaultGrid(e) {
 
 function gridSize() {
     let usrInput = prompt('Pick a number between 2 and 100: ')
-    usrInput = Number(usrInput)
-    return usrInput
+    usrchoice = Number(usrInput)
+    regularGrid = false
+    container.innerHTML = ''
+    defaultGrid()
+    return usrchoice
 }
 
 function paint(e) {
