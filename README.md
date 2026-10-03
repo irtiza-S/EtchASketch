@@ -1,6 +1,7 @@
 # Etch-A-Sketch
 
 A browser version of the classic Etch-A-Sketch toy, built with HTML, CSS and vanilla JavaScript as part of The Odin Project. Move your mouse over the screen to draw.
+https://irtiza-s.github.io/EtchASketch/
 
 ## Features
 
