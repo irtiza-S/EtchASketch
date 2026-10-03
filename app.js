@@ -42,7 +42,6 @@ function defaultGrid(e) {
     if (!regularGrid) {
         size = usrchoice
     }
-    console.log(size)
     for (let i = 0; i < size; i++) {
         let div = document.createElement('div')
         div.setAttribute('style', 'display: flex; flex: 1')
@@ -61,7 +60,14 @@ function defaultGrid(e) {
 
 function gridSize() {
     let usrInput = prompt('Pick a number between 2 and 100: ')
-    usrchoice = Number(usrInput)
+    if (usrInput === null) return
+
+    const size = Number(usrInput)
+       if (!Number.isInteger(size) || size < 2 || size > 100) {
+        alert('Please enter a whole number between 2 and 100.')
+        return
+    }
+    usrchoice = size
     regularGrid = false
     container.innerHTML = ''
     defaultGrid()
